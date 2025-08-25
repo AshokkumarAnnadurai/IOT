@@ -10,7 +10,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.13.1",
   "dependencies": {
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
