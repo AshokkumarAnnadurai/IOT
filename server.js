@@ -44,7 +44,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: `http://localhost:${PORT}`
+        url: `https://iot-production-8482.up.railway.app`
       }
     ]
   },
