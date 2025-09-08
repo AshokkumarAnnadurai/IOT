@@ -1,37 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import MqttSubscriber from './components/MqttSubscriber'
+import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
+import { PersistGate } from 'redux-persist/integration/react'
+import store, { persistor } from './store'
+import Theme from '@/components/template/Theme'
+import Layout from '@/components/layouts'
+import mockServer from './mock'
+import appConfig from '@/configs/app.config'
+import './locales'
 
+const environment = process.env.NODE_ENV
+
+/**
+ * Set enableMock(Default false) to true at configs/app.config.js
+ * If you wish to enable mock api
+ */
+if (environment !== 'production' && appConfig.enableMock) {
+    mockServer({ environment })
+}
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      {/* <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p> */}
-      <MqttSubscriber />
-    </>
-  )
+    return (
+        <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+                <BrowserRouter>
+                    <Theme>
+                        <Layout />
+                    </Theme>
+                </BrowserRouter>
+            </PersistGate>
+        </Provider>
+    )
 }
 
 export default App
